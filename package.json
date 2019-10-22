@@ -1,0 +1,17 @@
+{
+  "name": "abtm",
+  "version": "0.0.1",
+  "description": "A NodeJs + REST API for connecting to a MySQL db for the automatic btending machine ",
+  "main": "server.js",
+  "scripts": {
+    "start": "node src/server.js"
+  },
+  "author": "Headass House TM",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-graphql": "^0.9.0",
+    "mysql": "^2.17.1"
+  }
+}
+
