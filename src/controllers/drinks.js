@@ -1,9 +1,9 @@
 const {SQLCONNECT} = require('../sql/SQLConnect');
 
 module.exports = {
-    DRINKS: function(){
+    DRINKS: async function(req,res){
         const connection = SQLCONNECT();
-        return new Promise((success, failure) => {
+        res.json( await new Promise((success, failure) => {
             connection.query(`SELECT * FROM drinks WHERE available = TRUE`, 
             (error, result)=>{
                 if (error){
@@ -18,6 +18,6 @@ module.exports = {
                 }));
             })
             connection.end();
-        })
+        }));
     }
 }

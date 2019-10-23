@@ -14,11 +14,11 @@ app.get('/order',(req,res) => {
 })
 
 app.get('/guests',(req,res) => {
-    GUESTS();
+    GUESTS(req, res);
 })
 
 app.get('/menu',(req,res) => {
-    DRINKS();
+    DRINKS(req, res);
 })
 
 
