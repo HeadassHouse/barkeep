@@ -4,6 +4,7 @@ const { ORDER } = require('./controllers/order');
 const { QUEUE } = require('./controllers/queue');
 const { ADDGUEST } = require('./controllers/addGuest');
 const { ADDDRINK } = require('./controllers/addDrink');
+const { CHANGEDRINKSTATUS } = require('./controllers/changeDrinkStatus');
 
 const express = require('express');
 
@@ -47,19 +48,15 @@ app.get('/add_drink',(req,res) => {
     ADDDRINK(req,res);
 })
 
-app.get('/remove_drink',(req,res) => {
-    login(req,res);
-})
-
-app.get('/empty_drink',(req,res) => {
-    login(req,res);
-})
-
-app.get('/fill_drink',(req,res) => {
-    login(req,res);
+app.get('/change_drink_status',(req,res) => {
+    CHANGEDRINKSTATUS(req,res);
 })
 
 app.get('/remove_drink',(req,res) => {
+    login(req,res);
+})
+
+app.get('/remove_guest',(req,res) => {
     login(req,res);
 })
 
