@@ -2,6 +2,8 @@ const { DRINKS } = require('./controllers/drinks');
 const { GUESTS } = require('./controllers/guests');
 const { ORDER } = require('./controllers/order');
 const { QUEUE } = require('./controllers/queue');
+const { ADDGUEST } = require('./controllers/addGuest');
+const { ADDDRINK } = require('./controllers/addDrink');
 
 const express = require('express');
 
@@ -38,11 +40,11 @@ app.get('/fulfil',(req,res) => {
 })
 
 app.get('/add_guest',(req,res) => {
-    login(req,res);
+    ADDGUEST(req,res);
 })
 
 app.get('/add_drink',(req,res) => {
-    login(req,res);
+    ADDDRINK(req,res);
 })
 
 app.get('/remove_drink',(req,res) => {
