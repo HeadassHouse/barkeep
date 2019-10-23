@@ -2,7 +2,7 @@ const {SQLCONNECT} = require('../sql/SQLConnect');
 const { generateUUID } = require('../generateUUID');
 
 module.exports = {
-    ORDER: async function(req,res){
+    ORDER: async (req,res) => {
         const connection = SQLCONNECT();
         if (req.query.drink && req.query.user){
             const available = await new Promise((success, failure) => { 
