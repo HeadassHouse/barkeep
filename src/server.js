@@ -1,6 +1,8 @@
 const { DRINKS } = require('./controllers/drinks');
 const { GUESTS } = require('./controllers/guests');
 const { ORDER } = require('./controllers/order');
+const { QUEUE } = require('./controllers/queue');
+
 const express = require('express');
 
 const app = express();
@@ -28,7 +30,7 @@ app.get('/login',(req,res) => {
 })
 
 app.get('/queue',(req,res) => {
-    queue(req,res);
+    QUEUE(req,res);
 })
 
 app.get('/fulfil',(req,res) => {
