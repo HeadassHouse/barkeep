@@ -1,7 +1,7 @@
 const {SQLCONNECT} = require('../sql/SQLConnect');
 
 module.exports = {
-    GUESTS: function(){
+    DRINKS: function(){
         const connection = SQLCONNECT();
         return new Promise((success, failure) => {
             connection.query(`SELECT * FROM drinks WHERE available = TRUE`, 

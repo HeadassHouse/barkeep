@@ -1,29 +1,46 @@
 const {SQLCONNECT} = require('../sql/SQLConnect');
+const { generateUUID } = require('../generateUUID');
 
 module.exports = {
-    Order: function(req,res){
+    ORDER: async function(req,res){
         const connection = SQLCONNECT();
         if (req.query.drink && req.query.user){
-            const available = connection.query(`SELECT VALUE available FROM drinks WHERE name = ${req.query.drink} `,(error,result)=>{
-                if (!error){
-                    return result[0]["available"];
-                }
-                else{
-                    return error;
-                }
-            })
-            if (available){
-                connection.query(`UPDATE guests SET drinkCount = drinkCount + 1 WHERE name = ${req.query.user}`,(error,result)=>{
+            const available = await new Promise((success, failure) => { 
+                    connection.query(`SELECT available FROM drinks WHERE name = "${req.query.drink}"`,(error,result)=>{
+                    if (error){
+                        return failure(null);                    
+                    }
+                    else{
+                        return success(result.map(value => {
+                            var data = {};
+                            for(key in value) data[key] = value[key];
+                            return data;
+                        })[0]["available"])
+                    }
+                })
+            });
+            if (available == 1){
+                connection.query(`UPDATE guests SET drinkCount = drinkCount + 1 WHERE name = "${req.query.user}"`,(error,result)=>{
                     if (error){
                         throw new Error(error);
+                    } 
+                    else {
+                        return null;
                     }
                 })
 
-                connection.query(`INSERT INTO orders (user,drink) VALUES ("${req.query.user}","${req.query.drink}")`,(error,result)=>{
+                connection.query(`INSERT INTO orders (id,name,drink) VALUES ("${generateUUID()}","${req.query.user}","${req.query.drink}")`,(error,result)=>{
                     if(error){
                         throw new Error(error);
+                    } 
+                    else {
+                        return null;
                     }
                 })
+                res.json("Success!");
+            }
+            else {
+                res.json("Drink not available");
             }
         }
         else if(!req.query.drink){
