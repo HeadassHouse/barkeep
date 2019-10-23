@@ -1,19 +1,24 @@
+const { DRINKS } = require('./controllers/drinks');
+const { GUESTS } = require('./controllers/guests');
+const { ORDER } = require('./controllers/order');
 const express = require('express');
+
 const app = express();
+
 // This will be the server main
 //Okay papi (uwu)
 
 //CLIENT STUFF
 app.get('/order',(req,res) => {
-    order(req,res);
+    ORDER(req,res);
 })
 
 app.get('/guests',(req,res) => {
-    guests();
+    GUESTS(req, res);
 })
 
 app.get('/menu',(req,res) => {
-    drinks();
+    DRINKS(req, res);
 })
 
 
