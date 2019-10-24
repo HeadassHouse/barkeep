@@ -1,5 +1,16 @@
 const {SQLCONNECT} = require('../sql/SQLConnect');
-const { generateUUID } = require('../generateUUID');
+const { generateUUID } = require('../sql/generateUUID');
+
+/*
+    POST
+    {
+        "name": {}
+        "value": {}
+    }
+
+
+*/
+
 
 module.exports = {
     ORDER: async (req,res) => {
@@ -19,7 +30,9 @@ module.exports = {
                     }
                 })
             });
+            
             if (available == 1){
+                //Incremement drink count
                 connection.query(`UPDATE guests SET drinkCount = drinkCount + 1 WHERE name = "${req.query.user}"`,(error,result)=>{
                     if (error){
                         throw new Error(error);
@@ -28,8 +41,8 @@ module.exports = {
                         return null;
                     }
                 })
-
-                connection.query(`INSERT INTO orders (id,name,drink) VALUES ("${generateUUID()}","${req.query.user}","${req.query.drink}")`,(error,result)=>{
+                //Insert order data
+                connection.query(`INSERT INTO orders (id,name,drink) VALUES ("${generateUUID()}","${req.query.user}","${req.query.drink}","FALSE",CURRENT_TIMESTAMP)`,(error,result)=>{
                     if(error){
                         throw new Error(error);
                     } 

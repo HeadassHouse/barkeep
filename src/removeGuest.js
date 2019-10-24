@@ -4,36 +4,35 @@ const {SQLCONNECT} = require('../sql/SQLConnect');
 /*
     POST
     {
-        "user": {Name of Client}
-        "drink": {Name of Drink}
+        "name": {Name of Client}
     }
 
 
 */
 
 module.exports = {
-    FULFIL: async (req, res) => {
+    REMOVEGUEST: async (req, res) => {
         const connection = SQLCONNECT();
-        if (req.body.user && req.body.drink) {
+        if (req.body.name) {
             const failed = await new Promise((success, failure) => {
-                connection.query(`UPDATE drinks SET available = ${req.body.value} WHERE name = "${req.body.name}"`,(error,result)=>{
+                connection.query(`DELETE FROM guests WHERE name = "${req.body.user}}"`,(error,result)=>{
                     if (error){
                         return failure(new Error(error));
-                    } 
+                    }
                     else {
                         return success(null);
                     }
                 });
             });
             if (!failed) {
-                res.json(`${req.body.user}'s order has been marked as fulfilled`);
+                res.json(`${req.body.user} has been removed`);
             }
             else {
-                res.json("Order has failed to be marked as fulfilled");
+                res.json("Failed to remove user from database");
             }
         }
         else {
-            res.json("Must specify a name and a drink to fulfill an order");
+            res.json("Must specify a name to delete");
         }
     }
 }
