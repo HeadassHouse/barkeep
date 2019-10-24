@@ -7,11 +7,16 @@ const { ADDDRINK } = require('./controllers/addDrink');
 const { CHANGEDRINKSTATUS } = require('./controllers/changeDrinkStatus');
 const { CHANGEDRINKCOUNT } = require('./controllers/changeDrinkCount');
 const { FULFIL } = require('./controllers/fulfil');
-
 const express = require('express');
-
+const bodyParser = require('body-parser');
 const app = express();
 
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+
+// parse application/json
+app.use(bodyParser.json())
 // This will be the server main
 //Okay papi (uwu)
 
