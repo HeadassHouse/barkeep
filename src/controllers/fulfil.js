@@ -4,7 +4,7 @@ const {SQLCONNECT} = require('../sql/SQLConnect');
 /*
     POST
     {
-        "user": {Name of Client}
+        "name": {Name of Client}
         "drink": {Name of Drink}
     }
 
@@ -14,9 +14,9 @@ const {SQLCONNECT} = require('../sql/SQLConnect');
 module.exports = {
     FULFIL: async (req, res) => {
         const connection = SQLCONNECT();
-        if (req.body.user && req.body.drink) {
+        if (req.body.name && req.body.drink) {
             const failed = await new Promise((success, failure) => {
-                connection.query(`UPDATE drinks SET available = ${req.body.value} WHERE name = "${req.body.name}"`,(error,result)=>{
+                connection.query(`UPDATE orders SET fulfilled = TRUE WHERE name = "${req.body.name} AND drink = "${req.body.drink}"`,(error,result)=>{
                     if (error){
                         return failure(new Error(error));
                     } 
