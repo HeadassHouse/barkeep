@@ -1,13 +1,25 @@
 const { SQLCONNECT } = require('../sql/SQLConnect');
 const { generateUUID } = require('../generateUUID');
 
+
+
+/*
+    POST
+    {
+        "name": {Name of Drink}
+        "description": {Description of drink}
+    }
+
+
+*/
+
 module.exports = {
     ADDDRINK: async (req, res) => {
         const connection = SQLCONNECT();
         
-        if (req.query.name && req.query.description) {
+        if (req.body.name && req.body.description) {
             const person = await new Promise((success, failure) => { 
-                connection.query(`SELECT * FROM drinks WHERE name = "${req.query.name}"`,(error,result)=>{
+                connection.body(`SELECT * FROM drinks WHERE name = "${req.body.name}"`,(error,result)=>{
                     if (error){
                         return failure(null);                    
                     }
@@ -22,7 +34,7 @@ module.exports = {
             });
 
             if (!person) {
-                connection.query(`INSERT INTO drinks (id,name,description,available) VALUES ("${generateUUID()}","${req.query.name}","${req.query.description}",TRUE)`,(error,result)=>{
+                connection.body(`INSERT INTO drinks (id,name,description,available) VALUES ("${generateUUID()}","${req.body.name}","${req.body.description}",TRUE)`,(error,result)=>{
                     if(error){
                         throw new Error(error);
                     } 
@@ -30,7 +42,7 @@ module.exports = {
                         return null;
                     }
                 });
-                res.json(`${req.query.name} created!`);
+                res.json(`${req.body.name} created!`);
             }
             else {
                 res.json("That drink already exists!");
