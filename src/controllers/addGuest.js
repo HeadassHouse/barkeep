@@ -1,13 +1,21 @@
 const { SQLCONNECT } = require('../sql/SQLConnect');
 const { generateUUID } = require('../generateUUID');
 
+/*
+    POST
+    {
+        "name": {Name of Client}
+    }
+
+
+*/
+
 module.exports = {
     ADDGUEST: async (req, res) => {
         const connection = SQLCONNECT();
-        
-        if (req.query.user && req.query.venmo) {
+        if (req.body.name) {
             const person = await new Promise((success, failure) => { 
-                connection.query(`SELECT * FROM guests WHERE name = "${req.query.user}"`,(error,result)=>{
+                connection.query(`SELECT * FROM guests WHERE name = "${req.body.name}"`,(error,result)=>{
                     if (error){
                         return failure(null);                    
                     }
@@ -22,7 +30,7 @@ module.exports = {
             });
 
             if (!person) {
-                connection.query(`INSERT INTO guests (id,name,venmo,drinkCount) VALUES ("${generateUUID()}","${req.query.user}","${req.query.venmo}",0)`,(error,result)=>{
+                connection.query(`INSERT INTO guests (id,name,venmo,drinkCount) VALUES ("${generateUUID()}","${req.body.name}","NULL",0)`,(error,result)=>{
                     if(error){
                         throw new Error(error);
                     } 
@@ -30,7 +38,7 @@ module.exports = {
                         return null;
                     }
                 });
-                res.json(`${req.query.user} created!`);
+                res.json(`${req.body.name} created!`);
             }
             else {
                 res.json("That person already exists!");
