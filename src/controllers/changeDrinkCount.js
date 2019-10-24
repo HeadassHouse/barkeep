@@ -16,7 +16,7 @@ module.exports = {
         const connection = SQLCONNECT();
         if (req.body.name && req.body.value) {
             const failure = await new Promise((success, failure) => {
-                connection.body(`UPDATE guests SET drinkCount = ${req.body.value} + drinkCount WHERE name = "${req.body.name}"`,(error,result)=>{
+                connection.query(`UPDATE guests SET drinkCount = ${req.body.value} + drinkCount WHERE name = "${req.body.name}"`,(error,result)=>{
                     if (error){
                         return failure(new Error(error));
                     } 

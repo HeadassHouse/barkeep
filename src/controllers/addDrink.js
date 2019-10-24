@@ -19,7 +19,7 @@ module.exports = {
         
         if (req.body.name && req.body.description) {
             const person = await new Promise((success, failure) => { 
-                connection.body(`SELECT * FROM drinks WHERE name = "${req.body.name}"`,(error,result)=>{
+                connection.query(`SELECT * FROM drinks WHERE name = "${req.body.name}"`,(error,result)=>{
                     if (error){
                         return failure(null);                    
                     }
@@ -34,7 +34,7 @@ module.exports = {
             });
 
             if (!person) {
-                connection.body(`INSERT INTO drinks (id,name,description,available) VALUES ("${generateUUID()}","${req.body.name}","${req.body.description}",TRUE)`,(error,result)=>{
+                connection.query(`INSERT INTO drinks (id,name,description,available) VALUES ("${generateUUID()}","${req.body.name}","${req.body.description}",TRUE)`,(error,result)=>{
                     if(error){
                         throw new Error(error);
                     } 
