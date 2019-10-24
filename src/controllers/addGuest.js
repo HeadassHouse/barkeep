@@ -1,7 +1,6 @@
 const { SQLCONNECT } = require('../sql/SQLConnect');
 const { generateUUID } = require('../sql/generateUUID');
 
-
 /*
     POST
     {
@@ -14,10 +13,9 @@ const { generateUUID } = require('../sql/generateUUID');
 module.exports = {
     ADDGUEST: async (req, res) => {
         const connection = SQLCONNECT();
-        
         if (req.body.name) {
             const person = await new Promise((success, failure) => { 
-                connection.body(`SELECT * FROM guests WHERE name = "${req.body.name}"`,(error,result)=>{
+                connection.query(`SELECT * FROM guests WHERE name = "${req.body.name}"`,(error,result)=>{
                     if (error){
                         return failure(null);                    
                     }
@@ -32,7 +30,7 @@ module.exports = {
             });
 
             if (!person) {
-                connection.body(`INSERT INTO guests (id,name,venmo,drinkCount) VALUES ("${generateUUID()}","${req.body.name}","NULL",0)`,(error,result)=>{
+                connection.query(`INSERT INTO guests (id,name,venmo,drinkCount) VALUES ("${generateUUID()}","${req.body.name}","NULL",0)`,(error,result)=>{
                     if(error){
                         throw new Error(error);
                     } 
