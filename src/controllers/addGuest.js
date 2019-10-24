@@ -1,5 +1,5 @@
 const { SQLCONNECT } = require('../sql/SQLConnect');
-const { generateUUID } = require('../generateUUID');
+const { generateUUID } = require('../sql/generateUUID');
 
 
 /*

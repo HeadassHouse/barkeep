@@ -4,19 +4,19 @@ const {SQLCONNECT} = require('../sql/SQLConnect');
 /*
     POST
     {
-        "name": {Name of Drink}
-        "value": {Order status (empty/full)}
+        "user": {Name of Client}
+        "drink": {Name of Drink}
     }
 
 
 */
 
 module.exports = {
-    CHANGEDRINKSTATUS: async (req, res) => {
+    FULFIL: async (req, res) => {
         const connection = SQLCONNECT();
-        if (req.body.name && req.body.value) {
+        if (req.body.user && req.body.drink) {
             const failed = await new Promise((success, failure) => {
-                connection.body(`UPDATE drinks SET available = ${req.body.value} WHERE name = "${req.body.name}"`,(error,result)=>{
+                connection.body(`UPDATE orders SET fulfilled = TRUE WHERE name = "${req.body.user} AND drink = "${req.body.drink}"`,(error,result)=>{
                     if (error){
                         return failure(new Error(error));
                     } 
@@ -26,14 +26,14 @@ module.exports = {
                 });
             });
             if (!failed) {
-                res.json(`${req.body.name} is now ${(req.body.value == 1) ? "available" : "not available"}`);
+                res.json(`${req.body.user}'s order has been marked as fulfilled`);
             }
             else {
-                res.json("Could not update the drink!");
+                res.json("Order has failed to be marked as fulfilled");
             }
         }
         else {
-            res.json("Must specify a name and a value for which it is to become");
+            res.json("Must specify a name and a drink to fulfill an order");
         }
     }
 }

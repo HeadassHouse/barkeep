@@ -38,6 +38,7 @@ app.get('/queue',(req,res) => {
     QUEUE(req,res);
 })
 
+//Marks an order as Fulfilled
 app.post('/fulfil',(req,res) => {
     FULFIL(req,res);
 })
@@ -45,6 +46,7 @@ app.post('/fulfil',(req,res) => {
 //Adds a guest to be served
 app.post('/add_guest',(req,res) => {
     ADDGUEST(req,res);
+
 })
 
 //Adds a drink to be served
@@ -62,7 +64,7 @@ app.post('/remove_drink',(req,res) => {
 })
 
 app.post('/remove_guest',(req,res) => {
-    login(req,res);
+    REMOVEGUEST(req,res);
 })
 
 //Changes the amount of drinks that a client has drunken
