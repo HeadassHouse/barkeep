@@ -34,7 +34,7 @@ module.exports = {
             });
 
             if (!person) {
-                connection.query(`INSERT INTO drinks (id,name,description,available) VALUES ("${generateUUID()}","${req.body.name}","${req.body.description}",TRUE)`,(error,result)=>{
+                connection.query(`INSERT INTO drinks (id,name,description,available, numOrdered) VALUES ("${generateUUID()}","${req.body.name}","${req.body.description}",TRUE, 0)`,(error,result)=>{
                     if(error){
                         throw new Error(error);
                     } 
