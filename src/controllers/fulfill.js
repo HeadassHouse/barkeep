@@ -12,7 +12,7 @@ const {SQLCONNECT} = require('../sql/SQLConnect');
 */
 
 module.exports = {
-    FULFIL: async (req, res) => {
+    FULFILL: async (req, res) => {
         const connection = SQLCONNECT();
         if (req.body.name && req.body.drink) {
             const failed = await new Promise((success, failure) => {

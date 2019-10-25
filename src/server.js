@@ -1,3 +1,7 @@
+const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+
 const { DRINKS } = require('./controllers/drinks');
 const { GUESTS } = require('./controllers/guests');
 const { ORDER } = require('./controllers/order');
@@ -7,20 +11,17 @@ const { ADDDRINK } = require('./controllers/addDrink');
 const { CHANGEDRINKSTATUS } = require('./controllers/changeDrinkStatus');
 const { CHANGEDRINKCOUNT } = require('./controllers/changeDrinkCount');
 const { REMOVEGUEST } = require('./controllers/removeGuest');
-const { FULFIL } = require('./controllers/fulfil');
+const { FULFILL } = require('./controllers/fulfill');
 const { REMOVEDRINK } = require('./controllers/removeDrink');
-const express = require('express');
-const bodyParser = require('body-parser');
-const app = express();
 
+const app = express();
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
-
-// parse application/json
 app.use(bodyParser.json())
-// This will be the server main
-//Okay papi (uwu)
+
+// Cors stuff for the server
+app.use(cors());
 
 //CLIENT STUFF
 app.post('/order',(req,res) => {
@@ -47,7 +48,7 @@ app.get('/queue',(req,res) => {
 
 //Marks an order as Fulfilled
 app.post('/fulfil',(req,res) => {
-    FULFIL(req,res);
+    FULFILL(req,res);
 })
 
 //Adds a guest to be served
