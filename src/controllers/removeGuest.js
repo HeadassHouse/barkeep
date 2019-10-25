@@ -15,7 +15,7 @@ module.exports = {
         const connection = SQLCONNECT();
         if (req.body.name) {
             const failed = await new Promise((success, failure) => {
-                connection.query(`DELETE FROM guests WHERE name = "${req.body.name}}"`,(error,result)=>{
+                connection.query(`DELETE FROM guests WHERE name = "${req.body.name}"`,(error,result)=>{
                     if (error){
                         return failure(new Error(error));
                     }
