@@ -22,11 +22,18 @@ module.exports = {
                         return failure(null);                    
                     }
                     else{
-                        return success(result.map(value => {
+                        const available = result.map(value => {
                             var data = {};
                             for(key in value) data[key] = value[key];
                             return data;
-                        })[0]["available"])
+                        })
+
+                        if (available[0]) {
+                            return success(available[0]["available"]);
+                        } 
+                        else {
+                            return success(null);
+                        }
                     }
                 })
             });
