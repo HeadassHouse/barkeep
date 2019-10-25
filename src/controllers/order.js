@@ -49,12 +49,12 @@ module.exports = {
                     }
                 })
                 //Insert order data
-                connection.query(`INSERT INTO orders (id,name,drink,fulfilled,orderDate) VALUES ("${generateUUID()}","${req.body.name}","${req.body.drink}","FALSE",CURRENT_TIMESTAMP)`,(error,result)=>{
+                connection.query(`INSERT INTO orders (id,name,drink,fulfilled,orderDate) VALUES ("${generateUUID()}","${req.body.name}","${req.body.drink}",FALSE,CURRENT_TIMESTAMP)`,(error,result)=>{
                     if(error){
                         throw new Error(error);
                     } 
                     else {
-                        return null;
+                        return null;orderDate
                     }
                 })
                 res.json("Success!");
