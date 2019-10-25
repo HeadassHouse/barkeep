@@ -15,7 +15,7 @@ module.exports = {
         const connection = SQLCONNECT();
         if (req.body.name) {
             const failed = await new Promise((success, failure) => {
-                connection.query(`DELETE FROM guests WHERE name = "${req.body.user}}"`,(error,result)=>{
+                connection.query(`DELETE FROM guests WHERE name = "${req.body.name}}"`,(error,result)=>{
                     if (error){
                         return failure(new Error(error));
                     }
@@ -25,7 +25,7 @@ module.exports = {
                 });
             });
             if (!failed) {
-                res.json(`${req.body.user} has been removed`);
+                res.json(`${req.body.name} has been removed`);
             }
             else {
                 res.json("Failed to remove user from database");

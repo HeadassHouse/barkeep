@@ -26,7 +26,7 @@ module.exports = {
                 });
             });
             if (!failed) {
-                res.json(`${req.body.user}'s order has been marked as fulfilled`);
+                res.json(`${req.body.name}'s order has been marked as fulfilled`);
             }
             else {
                 res.json("Order has failed to be marked as fulfilled");
