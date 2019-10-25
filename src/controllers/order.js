@@ -49,7 +49,7 @@ module.exports = {
                     }
                 })
                 //Insert order data
-                connection.query(`INSERT INTO orders (id,name,drink,fulfilled,orderDate) VALUES ("${generateUUID()}","${req.body.name}","${req.body.drink}",FALSE,SYSDATETIME())`,(error,result)=>{
+                connection.query(`INSERT INTO orders (id,name,drink,fulfilled,orderDate) VALUES ("${generateUUID()}","${req.body.name}","${req.body.drink}",FALSE,DATETIME)`,(error,result)=>{
                     if(error){
                         throw new Error(error);
                     } 
