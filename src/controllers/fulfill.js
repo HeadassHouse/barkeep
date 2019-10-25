@@ -4,11 +4,8 @@ const {SQLCONNECT} = require('../sql/SQLConnect');
 /*
     POST
     {
-        "name": {Name of Client}
-        "drink": {Name of Drink}
+        "id":{The id of the order to complete}
     }
-
-
 */
 
 module.exports = {
@@ -16,7 +13,7 @@ module.exports = {
         const connection = SQLCONNECT();
         if (req.body.name && req.body.drink) {
             const failed = await new Promise((success, failure) => {
-                connection.query(`UPDATE orders SET fulfilled = TRUE WHERE name = "${req.body.name}" AND drink = "${req.body.drink}"`,(error,result)=>{
+                connection.query(`UPDATE orders SET fulfilled = TRUE WHERE id = "${req.body.id}"`,(error,result)=>{
                     if (error){
                         return failure(new Error(error));
                     } 
@@ -26,7 +23,7 @@ module.exports = {
                 });
             });
             if (!failed) {
-                res.json(`${req.body.name}'s order has been marked as fulfilled`);
+                res.json(`order ${req.body.id} has been marked as fulfilled`);
             }
             else {
                 res.json("Order has failed to be marked as fulfilled");
