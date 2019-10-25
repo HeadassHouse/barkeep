@@ -13,6 +13,7 @@ const { CHANGEDRINKCOUNT } = require('./controllers/changeDrinkCount');
 const { REMOVEGUEST } = require('./controllers/removeGuest');
 const { FULFILL } = require('./controllers/fulfill');
 const { REMOVEDRINK } = require('./controllers/removeDrink');
+const { CANCELORDER } = require('./controllers/cancelOrder');
 
 const app = express();
 
@@ -78,6 +79,10 @@ app.post('/remove_guest',(req,res) => {
 //Changes the amount of drinks that a client has drunken
 app.post('/change_drink_count',(req,res) => {
     CHANGEDRINKCOUNT(req,res);
+})
+
+app.post('/cancel_order',(req,res) => {
+    CANCELORDER(req,res);
 })
 
 var port = 8888;

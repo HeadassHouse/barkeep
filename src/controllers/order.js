@@ -48,6 +48,15 @@ module.exports = {
                         return null;
                     }
                 })
+                //Incremement ordered total
+                connection.query(`UPDATE drinks SET numOrdered = numOrdered + 1 WHERE name = "${req.body.drink}"`,(error,result)=>{
+                    if (error){
+                        throw new Error(error);
+                    } 
+                    else {
+                        return null;
+                    }
+                })
                 //Insert order data
                 connection.query(`INSERT INTO orders (id,name,drink,fulfilled,orderDate) VALUES ("${generateUUID()}","${req.body.name}","${req.body.drink}",FALSE,NOW())`,(error,result)=>{
                     if(error){

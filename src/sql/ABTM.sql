@@ -2,6 +2,7 @@ CREATE TABLE IF NOT EXISTS drinks (
   id char(36) NOT NULL,
   name varchar(255) NOT NULL,
   description varchar(255) NOT NULL,
+  numOrdered int(16) NOT NULL,
   available boolean NOT NULL,
   PRIMARY KEY (id)
 );
