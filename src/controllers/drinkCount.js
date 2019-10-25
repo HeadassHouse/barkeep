@@ -4,7 +4,7 @@ module.exports = {
     DRINKCOUNT: async (req, res) => {
         if (req.body.name) {
             const person = await SELECT("guests", `name = "${req.body.name}"`)
-            if (person) {
+            if (person[0]) {
                 res.json(person[0]['drinkCount'])
             }
             else {
