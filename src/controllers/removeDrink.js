@@ -15,7 +15,7 @@ module.exports = {
         const connection = SQLCONNECT();
         if (req.body.drink) {
             const failed = await new Promise((success, failure) => {
-                connection.query(`DELETE FROM drinks WHERE name = "${req.body.drink}}"`,(error,result)=>{
+                connection.query(`DELETE FROM drinks WHERE name = "${req.body.drink}"`,(error,result)=>{
                     if (error){
                         return failure(new Error(error));
                     }
