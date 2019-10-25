@@ -14,6 +14,7 @@ const { REMOVEGUEST } = require('./controllers/removeGuest');
 const { FULFILL } = require('./controllers/fulfill');
 const { REMOVEDRINK } = require('./controllers/removeDrink');
 const { CANCELORDER } = require('./controllers/cancelOrder');
+const { DRINKCOUNT } = require('./controllers/drinkCount');
 
 const app = express();
 
@@ -35,6 +36,10 @@ app.get('/guests',(req,res) => {
 
 app.get('/menu',(req,res) => {
     DRINKS(req, res);
+})
+
+app.post('/drink_count',(req,res) => {
+    DRINKCOUNT(req, res);
 })
 
 
