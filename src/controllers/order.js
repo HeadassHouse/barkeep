@@ -38,7 +38,29 @@ module.exports = {
                 })
             });
             
-            if (available == 1){
+            const drinkCount = await new Promise((success, failure) => { 
+                connection.query(`SELECT drinkCount FROM guests WHERE name = "${req.body.name}"`,(error,result)=>{
+                if (error){
+                    return failure(null);                    
+                }
+                else{
+                    const available = result.map(value => {
+                        var data = {};
+                        for(key in value) data[key] = value[key];
+                        return data;
+                    })
+
+                    if (available[0]) {
+                        return success(available[0]["drinkCount"]);
+                    } 
+                    else {
+                        return success(null);
+                    }
+                }
+            })
+        });
+
+            if (available == 1 && drinkCount){
                 //Incremement drink count
                 connection.query(`UPDATE guests SET drinkCount = drinkCount + 1 WHERE name = "${req.body.name}"`,(error,result)=>{
                     if (error){
@@ -58,7 +80,7 @@ module.exports = {
                     }
                 })
                 //Insert order data
-                connection.query(`INSERT INTO orders (id,name,drink,fulfilled,orderDate) VALUES ("${generateUUID()}","${req.body.name}","${req.body.drink}",FALSE,NOW())`,(error,result)=>{
+                connection.query(`INSERT INTO orders (id,name,drink,drinkCount,fulfilled,orderDate) VALUES ("${generateUUID()}","${req.body.name}","${req.body.drink}",${drinkCount},FALSE,NOW())`,(error,result)=>{
                     if(error){
                         throw new Error(error);
                     } 

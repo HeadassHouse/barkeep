@@ -21,5 +21,6 @@ CREATE TABLE IF NOT EXISTS orders(
   drink char(255) NOT NULL,
   fulfilled boolean NOT NULL,
   orderDate DATETIME(0) NOT NULL,
+  drinkCount int(16) NOT NULL,
   PRIMARY KEY (id)
 );
