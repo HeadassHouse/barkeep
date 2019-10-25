@@ -6,9 +6,9 @@ const { ADDGUEST } = require('./controllers/addGuest');
 const { ADDDRINK } = require('./controllers/addDrink');
 const { CHANGEDRINKSTATUS } = require('./controllers/changeDrinkStatus');
 const { CHANGEDRINKCOUNT } = require('./controllers/changeDrinkCount');
-const { REMOVEGUEST } = require('./controllers/removeGuests');
+const { REMOVEGUEST } = require('./controllers/removeGuest');
 const { FULFIL } = require('./controllers/fulfil');
-//const { REMOVEDRINK } = require('./controllers/removeDrink');
+const { REMOVEDRINK } = require('./controllers/removeDrink');
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
@@ -67,7 +67,7 @@ app.post('/change_drink_status',(req,res) => {
 })
 
 app.post('/remove_drink',(req,res) => {
-    login(req,res);
+    REMOVEDRINK(req,res);
 })
 
 app.post('/remove_guest',(req,res) => {

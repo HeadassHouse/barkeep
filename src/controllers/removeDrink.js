@@ -4,7 +4,7 @@ const {SQLCONNECT} = require('../sql/SQLConnect');
 /*
     POST
     {
-        "name": {Name of Drink}
+        "drink": {Name of Drink to be removed}
     }
 
 
@@ -13,9 +13,9 @@ const {SQLCONNECT} = require('../sql/SQLConnect');
 module.exports = {
     REMOVEDRINK: async (req, res) => {
         const connection = SQLCONNECT();
-        if (req.body.name) {
+        if (req.body.drink) {
             const failed = await new Promise((success, failure) => {
-                connection.query(`DELETE FROM guests WHERE name = "${req.body.user}}"`,(error,result)=>{
+                connection.query(`DELETE FROM drinks WHERE name = "${req.body.drink}}"`,(error,result)=>{
                     if (error){
                         return failure(new Error(error));
                     }
@@ -25,14 +25,14 @@ module.exports = {
                 });
             });
             if (!failed) {
-                res.json(`${req.body.user} has been removed`);
+                res.json(`${req.body.drink} has been removed`);
             }
             else {
-                res.json("Failed to remove user from database");
+                res.json("Failed to remove drink from database");
             }
         }
         else {
-            res.json("Must specify a name to delete");
+            res.json("Must specify a drink to delete");
         }
     }
 }
