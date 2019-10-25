@@ -4,8 +4,8 @@ const { generateUUID } = require('../sql/generateUUID');
 /*
     POST
     {
-        "name": {}
-        "value": {}
+        "name": {Client who ordered}
+        "drink": {Drink they ordered}
     }
 
 
@@ -15,9 +15,9 @@ const { generateUUID } = require('../sql/generateUUID');
 module.exports = {
     ORDER: async (req,res) => {
         const connection = SQLCONNECT();
-        if (req.query.drink && req.query.user){
+        if (req.body.drink && req.body.name){
             const available = await new Promise((success, failure) => { 
-                    connection.query(`SELECT available FROM drinks WHERE name = "${req.query.drink}"`,(error,result)=>{
+                    connection.query(`SELECT available FROM drinks WHERE name = "${req.body.drink}"`,(error,result)=>{
                     if (error){
                         return failure(null);                    
                     }
@@ -33,7 +33,7 @@ module.exports = {
             
             if (available == 1){
                 //Incremement drink count
-                connection.query(`UPDATE guests SET drinkCount = drinkCount + 1 WHERE name = "${req.query.user}"`,(error,result)=>{
+                connection.query(`UPDATE guests SET drinkCount = drinkCount + 1 WHERE name = "${req.body.name}"`,(error,result)=>{
                     if (error){
                         throw new Error(error);
                     } 
@@ -42,7 +42,7 @@ module.exports = {
                     }
                 })
                 //Insert order data
-                connection.query(`INSERT INTO orders (id,name,drink) VALUES ("${generateUUID()}","${req.query.user}","${req.query.drink}","FALSE",CURRENT_TIMESTAMP)`,(error,result)=>{
+                connection.query(`INSERT INTO orders (id,name,drink) VALUES ("${generateUUID()}","${req.body.name}","${req.body.drink}","FALSE",CURRENT_TIMESTAMP)`,(error,result)=>{
                     if(error){
                         throw new Error(error);
                     } 
@@ -56,13 +56,13 @@ module.exports = {
                 res.json("Drink not available");
             }
         }
-        else if(!req.query.drink){
+        else if(!req.body.drink){
             res.json({
                 status_code: 409,
                 message: "You didn't provide a drink you mongoloid",
             });
         }
-        else if(!req.query.user){
+        else if(!req.body.name){
             res.json({
                 status_code: 409,
                 message: "You didn't provide a user you mongoloid",

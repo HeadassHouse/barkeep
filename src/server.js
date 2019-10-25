@@ -6,7 +6,9 @@ const { ADDGUEST } = require('./controllers/addGuest');
 const { ADDDRINK } = require('./controllers/addDrink');
 const { CHANGEDRINKSTATUS } = require('./controllers/changeDrinkStatus');
 const { CHANGEDRINKCOUNT } = require('./controllers/changeDrinkCount');
+const { REMOVEGUEST } = require('./controllers/removeGuests');
 const { FULFIL } = require('./controllers/fulfil');
+//const { REMOVEDRINK } = require('./controllers/removeDrink');
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
@@ -21,7 +23,7 @@ app.use(bodyParser.json())
 //Okay papi (uwu)
 
 //CLIENT STUFF
-app.get('/order',(req,res) => {
+app.post('/order',(req,res) => {
     ORDER(req,res);
 })
 
