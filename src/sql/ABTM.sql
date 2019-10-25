@@ -19,6 +19,6 @@ CREATE TABLE IF NOT EXISTS orders(
   name char(255) NOT NULL,
   drink char(255) NOT NULL,
   fulfilled boolean NOT NULL,
-  orderDate TIME(0) NOT NULL,
+  orderDate DATETIME(0) NOT NULL,
   PRIMARY KEY (id)
 );
