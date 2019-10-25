@@ -3,7 +3,7 @@ const {SELECT} = require('../sql/dynamicSQLSelect');
 module.exports = {
     DRINKCOUNT: async (req, res) => {
         if (req.body.name) {
-            const person = await SELECT("guests", `name = ${req.body.name}`)
+            const person = await SELECT("guests", `name = "${req.body.name}"`)
             if (person) {
                 res.json(person[0]['drinkCount'])
             }
