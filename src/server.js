@@ -48,7 +48,7 @@ app.get('/queue',(req,res) => {
 })
 
 //Marks an order as Fulfilled
-app.post('/fulfil',(req,res) => {
+app.post('/fulfill',(req,res) => {
     FULFILL(req,res);
 })
 
