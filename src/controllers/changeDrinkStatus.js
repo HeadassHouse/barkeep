@@ -14,7 +14,7 @@ const {SQLCONNECT} = require('../sql/SQLConnect');
 module.exports = {
     CHANGEDRINKSTATUS: async (req, res) => {
         const connection = SQLCONNECT();
-        if (req.body.name && req.body.value != null) {
+        if (req.body.name != null && req.body.value != null) {
             const availability = await new Promise((success, failure) => {
                 connection.query(`UPDATE drinks SET available = ${req.body.value} WHERE name = "${req.body.name}"`,(error,result)=>{
                     if (error){
