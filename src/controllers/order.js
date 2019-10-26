@@ -60,7 +60,7 @@ module.exports = {
             })
         });
 
-            if (available == 1 && drinkCount){
+            if (available == 1 && drinkCount != null){
                 //Incremement drink count
                 connection.query(`UPDATE guests SET drinkCount = drinkCount + 1 WHERE name = "${req.body.name}"`,(error,result)=>{
                     if (error){
