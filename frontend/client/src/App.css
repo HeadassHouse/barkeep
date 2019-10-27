@@ -44,10 +44,38 @@
 #drinks{
   list-style: none;
 }
-.person{
 
+#orderPage{
+  color: white;
 }
 
-.drink{
+#homePage{
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
+#orderButton{
+  width: 75%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  background: blueviolet;
+  color: white;
+  margin: auto;
+  text-decoration: none;
+}
+
+#orderButton:hover{
+  background: pink;
+}
+
+#orderButton h1{
+  font-size: 20rem;
+}
+
+body{
+  background: darkslategray;
 }

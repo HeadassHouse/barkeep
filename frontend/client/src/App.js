@@ -1,4 +1,5 @@
 import React,  {Component} from 'react';
+import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
 import logo from './logo.svg';
 import './App.css';
 import AddGuest from "./components/AddGuest";
@@ -18,6 +19,7 @@ class App extends Component {
     this.updateGuests = this.updateGuests.bind(this);
     this.getDrinks = this.getDrinks.bind(this);
     this.updateDrinks = this.updateDrinks.bind(this);
+    this.order = this.order.bind(this);
   }
 
 
@@ -48,7 +50,7 @@ class App extends Component {
       "drink": x
     }));
     console.log(req.responseText);
-    window.location.reload();
+    window.location.href = "../home";
   }
 
   async getNames(){
@@ -104,43 +106,50 @@ class App extends Component {
     setTimeout("location.reload(true)", timeoutPeriod);
   }
 
-
-  render() {
-    return (
-        <div className="App">
-          <p>
-            <strong>Welcome to the Headass House Party.  Please select your name and drink</strong>
-          </p>
-          <div class="row">
-            <div class="column">
-              <strong>Select your name here</strong>
-              <ol id="guests"></ol>
-            </div>
-            <div class="column">
-              <strong>Select your drink here</strong>
-              <ol id="drinks"></ol>
-            </div>
-          </div>
-          <button onClick={() => this.submitDrink(this.state.valueName.value, this.state.valueDrink.value)}>Submit Order</button>
-
-          <p>{this.state.responseToPost}</p>
-
-        </div>
-    );
-  }
-
-  componentDidMount() {
+  order(){
     this.state.names = document.querySelector("#guests");
     this.state.drinkNames =  document.querySelector("#drinks");
     this.getNames();
     this.getDrinks();
-    // try {
-    //   setInterval(async () => {
-    //    this.getNames();
-    //   }, 1000);
-    // } catch (e) {
-    //   console.log(e);
-    // }
+  }
+
+
+  render() {
+    return (
+        <div className="App">
+          <Router>
+            <Switch>
+              <Route from="/home" render={() => (
+                <div id="homePage">
+                  <Link to="/order" id="orderButton" onClick={() => setTimeout(this.order, 10)}>
+                    <h1>Order Now</h1>
+                  </Link>
+                </div>
+                )} />
+              <Route path="/order" render={() => (
+                <div id="orderPage">
+                  <p>
+                    <strong>Welcome to the Headass House Party.  Please select your name and drink</strong>
+                  </p>
+                  <div class="row">
+                    <div class="column">
+                      <strong>Select your name here</strong>
+                      <ol id="guests"></ol>
+                    </div>
+                    <div class="column">
+                      <strong>Select your drink here</strong>
+                      <ol id="drinks"></ol>
+                    </div>
+                  </div>
+                  <button onClick={() => this.submitDrink(this.state.valueName.value, this.state.valueDrink.value)}>Submit Order</button>
+
+                  <p>{this.state.responseToPost}</p>
+                </div>
+                )} />
+              </Switch>
+          </Router>
+        </div>
+    );
   }
  }
 
